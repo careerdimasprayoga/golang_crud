@@ -43,14 +43,53 @@ func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 	defer rows.Close()
 
 	var posts []entities.Post
+	columns, err := rows.Columns()
+	if err != nil {
+		fmt.Println(err)
+		return []entities.Post{}
+	}
+
+	values := make([]interface{}, len(columns))
+	valuePtrs := make([]interface{}, len(columns))
+	for i := range columns {
+		valuePtrs[i] = &values[i]
+	}
+
 	for rows.Next() {
+		err = rows.Scan(valuePtrs...)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+
+		rowData := make(map[string]interface{})
+		for i, column := range columns {
+			val := values[i]
+
+			// Perform any necessary type assertions to get the actual value
+			switch v := val.(type) {
+			case []byte:
+				rowData[column] = string(v)
+			default:
+				rowData[column] = v
+			}
+		}
+
+		fmt.Println(rowData)
+
 		var post entities.Post
-		rows.Scan(&post.Title, &post.Content, &post.Category, &post.Status)
+		err = mapstructure.Decode(rowData, &post)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+
 		posts = append(posts, post)
 	}
 
 	return posts
 }
+
 
 func (p *PostModel) CountPosts() int {
 	var count int
