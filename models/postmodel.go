@@ -41,14 +41,21 @@ func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 		return []entities.Post{}
 	}
 	defer rows.Close()
-	
+
 	var posts []entities.Post
 	for rows.Next() {
 		var post entities.Post
 		rows.Scan(&post.Title, &post.Content, &post.Category, &post.Status)
 		posts = append(posts, post)
+
+		// Tampilkan nilai objek Post ke dalam console
+		fmt.Printf("Title: %s\n", post.Title)
+		fmt.Printf("Content: %s\n", post.Content)
+		fmt.Printf("Category: %s\n", post.Category)
+		fmt.Printf("Status: %s\n", post.Status)
+		fmt.Println("--------------------")
 	}
-	
+
 	return posts
 }
 
