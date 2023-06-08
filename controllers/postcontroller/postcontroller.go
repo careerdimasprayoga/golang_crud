@@ -69,17 +69,6 @@ func All_post(response http.ResponseWriter, request *http.Request) {
 		CurrentPage: page,
 	}
 
-	// Print data tabel
-	fmt.Println("Posts:")
-	for _, post := range posts {
-		fmt.Printf("ID: %d\n", post.Id)
-		fmt.Printf("Title: %s\n", post.title)
-		fmt.Printf("Content: %s\n", post.Content)
-		fmt.Printf("Category: %s\n", post.Category)
-		fmt.Printf("Status: %s\n", post.Status)
-		fmt.Println("--------------------")
-	}
-
 	temp, err := template.ParseFiles("views/post/all_post.html")
 	if err != nil {
 		panic(err)
