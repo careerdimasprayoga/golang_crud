@@ -3,7 +3,6 @@ package models
 import (
 	"database/sql"
 	"fmt"
-	// "time"
 	"github.com/careerdimasprayoga/golang_crud/config"
 	"github.com/careerdimasprayoga/golang_crud/entities"
 )
@@ -23,81 +22,42 @@ func NewPostModel() *PostModel {
 	}
 }
 
-// func (p *PasienModel) FindAll() ([]entities.Pasien, error) {
-
-// 	rows, err := p.conn.Query("select * from pasien")
-// 	if err != nil {
-// 		return []entities.Pasien{}, err
-// 	}
-// 	defer rows.Close()
-
-// 	var dataPasien []entities.Pasien
-// 	for rows.Next() {
-// 		var pasien entities.Pasien
-// 		rows.Scan(&pasien.Id,
-// 			&pasien.NamaLengkap,
-// 			&pasien.NIK,
-// 			&pasien.JenisKelamin,
-// 			&pasien.TempatLahir,
-// 			&pasien.TanggalLahir,
-// 			&pasien.Alamat,
-// 			&pasien.NoHp)
-
-// 		if pasien.JenisKelamin == "1" {
-// 			pasien.JenisKelamin = "Laki-laki"
-// 		} else {
-// 			pasien.JenisKelamin = "Perempuan"
-// 		}
-// 		// 2006-01-02 => yyyy-mm-dd
-// 		tgl_lahir, _ := time.Parse("2006-01-02", pasien.TanggalLahir)
-// 		// 02-01-2006 => dd-mm-yyyy
-// 		pasien.TanggalLahir = tgl_lahir.Format("02-01-2006")
-
-// 		dataPasien = append(dataPasien, pasien)
-// 	}
-
-// 	return dataPasien, nil
-
-// }
-
 func (p *PostModel) Create(post entities.Post) bool {
-
-	result, err := p.conn.Exec("insert into posts (title, content, category, status) values(?,?,?,?)",
+	result, err := p.conn.Exec("INSERT INTO posts (title, content, category, status) VALUES (?, ?, ?, ?)",
 		post.Title, post.Content, post.Category, post.Status)
 	if err != nil {
 		fmt.Println(err)
 		return false
 	}
-	lastInsertId, _ := result.LastInsertId()
-	return lastInsertId > 0
+	lastInsertID, _ := result.LastInsertId()
+	return lastInsertID > 0
 }
 
-// func (p *PasienModel) Find(id int64, pasien *entities.Pasien) error {
+func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
+	rows, err := p.conn.Query("SELECT * FROM posts LIMIT ?, ?", offset, limit)
+	if err != nil {
+		fmt.Println(err)
+		return []entities.Post{}
+	}
+	defer rows.Close()
 
-// 	return p.conn.QueryRow("select * from pasien where id = ?", id).Scan(
-// 		&pasien.Id,
-// 		&pasien.NamaLengkap,
-// 		&pasien.NIK,
-// 		&pasien.JenisKelamin,
-// 		&pasien.TempatLahir,
-// 		&pasien.TanggalLahir,
-// 		&pasien.Alamat,
-// 		&pasien.NoHp)
-// }
+	var posts []entities.Post
+	for rows.Next() {
+		var post entities.Post
+		rows.Scan(&post.ID, &post.Title, &post.Content, &post.Category, &post.Status)
+		posts = append(posts, post)
+	}
 
-// func (p *PasienModel) Update(pasien entities.Pasien) error {
+	return posts
+}
 
-// 	_, err := p.conn.Exec(
-// 		"update pasien set nama_lengkap = ?, nik = ?, jenis_kelamin = ?, tempat_lahir = ?, tanggal_lahir = ?, alamat = ?, no_hp = ? where id = ?",
-// 		pasien.NamaLengkap, pasien.NIK, pasien.JenisKelamin, pasien.TempatLahir, pasien.TanggalLahir, pasien.Alamat, pasien.NoHp, pasien.Id)
+func (p *PostModel) CountPosts() int {
+	var count int
+	err := p.conn.QueryRow("SELECT COUNT(*) FROM posts").Scan(&count)
+	if err != nil {
+		fmt.Println(err)
+		return 0
+	}
 
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
-
-// func (p *PasienModel) Delete(id int64) {
-// 	p.conn.Exec("delete from pasien where id = ?", id)
-// }
+	return count
+}
