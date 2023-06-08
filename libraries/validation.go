@@ -2,6 +2,7 @@ package libraries
 
 import (
 	"reflect"
+	"strconv"
 
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
@@ -40,9 +41,9 @@ func NewValidation() *Validation {
 	// register validation min_length
 	validate.RegisterValidation("min_length", func(fl validator.FieldLevel) bool {
 		field := fl.Field().String()
-		param := fl.Param()
+		param, _ := strconv.Atoi(fl.Param())
 
-		if len(field) < int(param) {
+		if len(field) < param {
 			return false
 		}
 
