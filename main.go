@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"github.com/jeypc/go-crud/controllers/pasiencontroller"
-	"github.com/careerdimasprayoga/golang_crud/controllers/postcontroller"
+	"github.com/careerdimasprayoga/golang_crud/tree/master/controllers/postcontroller"
 )
 
 func main() {

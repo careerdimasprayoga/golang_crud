@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/careerdimasprayoga/golang_crud/libraries"
-	"github.com/careerdimasprayoga/golang_crud/models"
-	"github.com/careerdimasprayoga/golang_crud/entities"
+	"github.com/careerdimasprayoga/golang_crud/tree/master/libraries"
+	"github.com/careerdimasprayoga/golang_crud/tree/master/models"
+	"github.com/careerdimasprayoga/golang_crud/tree/master/entities"
 )
 
 func all_post(response http.ResponseWriter, request *http.Request) {
