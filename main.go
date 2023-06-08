@@ -11,7 +11,7 @@ func main() {
 	// http.HandleFunc("/article/", pasiencontroller.All_post)
 	// http.HandleFunc("/article", pasiencontroller.All_post)
 
-	http.HandleFunc("/", postcontroller.all_post)
+	http.HandleFunc("/", postcontroller.All_post)
 	// http.HandleFunc("/add_post", postcontroller.add_post)
 	// http.HandleFunc("/all_post", postcontroller.all_post)
 	// http.HandleFunc("/drafts_post", postcontroller.drafts_post)

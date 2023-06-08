@@ -9,7 +9,7 @@ import (
 	// "github.com/careerdimasprayoga/golang_crud/entities"
 )
 
-func all_post(response http.ResponseWriter, request *http.Request) {
+func All_post(response http.ResponseWriter, request *http.Request) {
 	temp, err := template.ParseFiles("views/post/all_post.html")
 	if err != nil {
 		panic(err)
@@ -17,7 +17,7 @@ func all_post(response http.ResponseWriter, request *http.Request) {
 	temp.Execute(response, nil)
 }
 
-func add_post(response http.ResponseWriter, request *http.Request) {
+func Add_post(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method == http.MethodGet {
 		temp, err := template.ParseFiles("views/post/add_post.html")
