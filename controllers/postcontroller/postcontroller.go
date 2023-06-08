@@ -1,7 +1,7 @@
 package postcontroller
 
 import (
-	// "fmt"
+	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -82,6 +82,7 @@ func Edit_post(response http.ResponseWriter, request *http.Request) {
 	if request.Method == http.MethodGet {
 		queryString := request.URL.Query()
 		id, _ := strconv.ParseInt(queryString.Get("id"), 10, 64)
+		fmt.Println(id)
 		var post entities.Post
 		postModel.Find(id, &post)
 		data := map[string]interface{}{
