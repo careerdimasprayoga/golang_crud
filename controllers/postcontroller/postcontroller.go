@@ -3,9 +3,9 @@ package postcontroller
 import (
 	"html/template"
 	"net/http"
-	"strconv"
+	// "strconv"
 	"github.com/careerdimasprayoga/golang_crud/libraries"
-	// "github.com/careerdimasprayoga/golang_crud/models"
+	"github.com/careerdimasprayoga/golang_crud/models"
 	"github.com/careerdimasprayoga/golang_crud/entities"
 )
 
@@ -44,7 +44,7 @@ func add_post(response http.ResponseWriter, request *http.Request) {
 			data["validation"] = vErrors
 		} else {
 			data["pesan"] = "Data pasien berhasil disimpan"
-			pasienModel.Create(pasien)
+			// pasienModel.Create(pasien)
 		}
 
 		temp, _ := template.ParseFiles("views/pasien/add.html")
