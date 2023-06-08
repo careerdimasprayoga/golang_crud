@@ -1,54 +1,61 @@
-package postcontroller
+package libraries
 
 import (
-	"html/template"
-	"net/http"
+	"reflect"
 
-	"github.com/careerdimasprayoga/golang_crud/libraries"
-	"github.com/careerdimasprayoga/golang_crud/models"
-	"github.com/careerdimasprayoga/golang_crud/entities"
+	"github.com/go-playground/locales/en"
+	ut "github.com/go-playground/universal-translator"
+	"github.com/go-playground/validator/v10"
+	en_translations "github.com/go-playground/validator/v10/translations/en"
 )
 
-var validation = libraries.NewValidation()
-var postModel = models.NewPostModel()
-
-func All_post(response http.ResponseWriter, request *http.Request) {
-	temp, err := template.ParseFiles("views/post/all_post.html")
-	if err != nil {
-		panic(err)
-	}
-	temp.Execute(response, nil)
+type Validation struct {
+	validate *validator.Validate
+	trans    ut.Translator
 }
 
-func Add_post(response http.ResponseWriter, request *http.Request) {
+func NewValidation() *Validation {
+	translator := en.New()
+	uni := ut.New(translator, translator)
 
-	if request.Method == http.MethodGet {
-		temp, err := template.ParseFiles("views/post/add_post.html")
-		if err != nil {
-			panic(err)
+	trans, _ := uni.GetTranslator("en")
+
+	validate := validator.New()
+	en_translations.RegisterDefaultTranslations(validate, trans)
+
+	// register tag label
+	validate.RegisterTagNameFunc(func(field reflect.StructField) string {
+		name := field.Tag.Get("label")
+		return name
+	})
+
+	// membuat custom error
+	validate.RegisterTranslation("required", trans, func(ut ut.Translator) error {
+		return ut.Add("required", "{0} harus diisi", true)
+	}, func(ut ut.Translator, fe validator.FieldError) string {
+		t, _ := ut.T("required", fe.Field())
+		return t
+	})
+
+	return &Validation{
+		validate: validate,
+		trans:    trans,
+	}
+}
+
+func (v *Validation) Struct(s interface{}) interface{} {
+	errors := make(map[string]string)
+
+	err := v.validate.Struct(s)
+	if err != nil {
+		for _, e := range err.(validator.ValidationErrors) {
+			errors[e.StructField()] = e.Translate(v.trans)
 		}
-		temp.Execute(response, nil)
-	} else if request.Method == http.MethodPost {
-		request.ParseForm()
-		var post entities.Post
-		post.Title = request.Form.Get("title")
-		post.Content = request.Form.Get("content")
-		post.Category = request.Form.Get("category")
-		post.Status = request.Form.Get("status")
-		
-		var data = make(map[string]interface{})
-		vErrors := validation.Struct(post)
-
-		if vErrors != nil {
-			data["post"] = post
-			data["validation"] = vErrors
-		} else {
-			data["pesan"] = "Post successfully saved!"
-			postModel.Create(post)
-		}
-
-		temp, _ := template.ParseFiles("views/post/add_post.html")
-		temp.Execute(response, data)
 	}
 
+	if len(errors) > 0 {
+		return errors
+	}
+
+	return nil
 }
