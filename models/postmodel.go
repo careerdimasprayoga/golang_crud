@@ -112,7 +112,7 @@ func (p *PostModel) CountPosts() int {
 
 func (p *PostModel) Find(id int64, post *entities.Post) error {
 
-	return p.conn.QueryRow("select * from posts where id = ?", id).Scan(
+	return p.conn.QueryRow("select * from posts where Id = ?", id).Scan(
 		&post.Id,
 		&post.Title,
 		&post.Content,

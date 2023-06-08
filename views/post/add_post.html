@@ -64,8 +64,7 @@
           </div>
           <div class="form-group">
             <label for="">Content</label>
-            <input type="text" name="content"
-              class="form-control {{ if .validation.Content }} is-invalid {{ end }}" value="{{ .post.Content }}">
+            <textarea name="content" class="form-control {{ if .validation.Content }} is-invalid {{ end }}" value="{{ .post.Title }}">{{ .post.Content }}</textarea>
             <div class="invalid-feedback">
               {{ .validation.Content }}
             </div>
