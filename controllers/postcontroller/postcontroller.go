@@ -46,6 +46,8 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 }
 
 func All_post(response http.ResponseWriter, request *http.Request) {
+	postModel := models.NewPostModel() // Inisialisasi postModel
+
 	page, err := strconv.Atoi(request.URL.Query().Get("page"))
 	if err != nil {
 		page = 1
@@ -67,6 +69,7 @@ func All_post(response http.ResponseWriter, request *http.Request) {
 		CurrentPage: page,
 	}
 
+	// Print data tabel
 	fmt.Println("Posts:")
 	for _, post := range posts {
 		fmt.Printf("ID: %d\n", post.Id)
