@@ -76,3 +76,44 @@ func All_post(response http.ResponseWriter, request *http.Request) {
 
 	temp.Execute(response, data)
 }
+
+func Edit_post(response http.ResponseWriter, request *http.Request) {
+
+	if request.Method == http.MethodGet {
+		queryString := request.URL.Query()
+		id, _ := strconv.ParseInt(queryString.Get("id"), 10, 64)
+		var post entities.Post
+		postModel.Find(id, &post)
+		data := map[string]interface{}{
+			"post": post,
+		}
+		temp, err := template.ParseFiles("views/post/edit_post.html")
+		if err != nil {
+			panic(err)
+		}
+		temp.Execute(response, data)
+
+	} else if request.Method == http.MethodPost {
+		request.ParseForm()
+		var post entities.Post
+		post.Id, _ = strconv.ParseInt(request.Form.Get("id"), 10, 64)
+		post.Title = request.Form.Get("title")
+		post.Content = request.Form.Get("content")
+		post.Category = request.Form.Get("category")
+		post.Status = request.Form.Get("status")
+		var data = make(map[string]interface{})
+		vErrors := validation.Struct(post)
+
+		if vErrors != nil {
+			data["post"] = post
+			data["validation"] = vErrors
+		} else {
+			data["pesan"] = "Post successfully updated"
+			postModel.Update(post)
+		}
+
+		temp, _ := template.ParseFiles("views/post/edit_post.html")
+		temp.Execute(response, data)
+	}
+
+}

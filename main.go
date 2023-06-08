@@ -16,7 +16,7 @@ func main() {
 	// http.HandleFunc("/all_post", postcontroller.all_post)
 	// http.HandleFunc("/drafts_post", postcontroller.drafts_post)
 	// http.HandleFunc("/trashed_post", postcontroller.trashed_post)
-	// http.HandleFunc("/edit_post", postcontroller.edit_post)
+	http.HandleFunc("/edit_post", postcontroller.Edit_post)
 	// http.HandleFunc("/move_post", postcontroller.move_trashed_post)
 
 	// http.HandleFunc("/", pasiencontroller.Index)

@@ -62,12 +62,9 @@ func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 			fmt.Println(err)
 			continue
 		}
-
 		rowData := make(map[string]interface{})
 		for i, column := range columns {
 			val := values[i]
-
-			// Perform any necessary type assertions to get the actual value
 			switch v := val.(type) {
 			case []byte:
 				rowData[column] = string(v)
@@ -75,16 +72,13 @@ func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 				rowData[column] = v
 			}
 		}
-
 		fmt.Println(rowData)
-
 		var post entities.Post
 		err = mapstructure.Decode(rowData, &post)
 		if err != nil {
 			fmt.Println(err)
 			continue
 		}
-
 		posts = append(posts, post)
 	}
 
