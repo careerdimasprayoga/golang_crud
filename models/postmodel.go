@@ -2,7 +2,7 @@ package models
 
 import (
 	"database/sql"
-	// "fmt"
+	"fmt"
 	"github.com/careerdimasprayoga/golang_crud/config"
 	"github.com/careerdimasprayoga/golang_crud/entities"
 )
