@@ -40,16 +40,16 @@ func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 		fmt.Println(err)
 		return []entities.Post{}
 	}
-	// defer rows.Close()
+	defer rows.Close()
 
-	// var posts []entities.Post
-	// for rows.Next() {
-	// 	var post entities.Post
-	// 	rows.Scan(&post.Title, &post.Content, &post.Category, &post.Status)
-	// 	posts = append(posts, post)
-	// }
+	var posts []entities.Post
+	for rows.Next() {
+		var post entities.Post
+		rows.Scan(&post.Title, &post.Content, &post.Category, &post.Status)
+		posts = append(posts, post)
+	}
 
-	return rows
+	return posts
 }
 
 func (p *PostModel) CountPosts() int {
