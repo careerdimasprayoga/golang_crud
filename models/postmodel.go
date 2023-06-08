@@ -85,7 +85,7 @@ func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 				rowData[column] = v
 			}
 		}
-		fmt.Println(rowData)
+		// fmt.Println(rowData)
 		var post entities.Post
 		err = mapstructure.Decode(rowData, &post)
 		if err != nil {
