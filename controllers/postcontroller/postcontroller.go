@@ -21,7 +21,6 @@ func All_post(response http.ResponseWriter, request *http.Request) {
 }
 
 func Add_post(response http.ResponseWriter, request *http.Request) {
-
 	if request.Method == http.MethodGet {
 		temp, err := template.ParseFiles("views/post/add_post.html")
 		if err != nil {
@@ -35,7 +34,7 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 		post.Content = request.Form.Get("content")
 		post.Category = request.Form.Get("category")
 		post.Status = request.Form.Get("status")
-		
+
 		var data = make(map[string]interface{})
 		vErrors := validation.Struct(post)
 
@@ -43,12 +42,11 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 			data["post"] = post
 			data["validation"] = vErrors
 		} else {
-			data["pesan"] = "Post successfully saved !"
+			data["pesan"] = "Post successfully saved!"
 			postModel.Create(post)
 		}
 
 		temp, _ := template.ParseFiles("views/post/add_post.html")
 		temp.Execute(response, data)
 	}
-
 }
