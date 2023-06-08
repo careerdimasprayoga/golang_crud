@@ -60,14 +60,14 @@
           <div class="form-group">
             <label for="">Title</label>
             <input type="text" name="title" value="{{ .post.Title }}"
-              class="form-control {{ if .validation.post }} is-invalid {{ end }}">
+              class="form-control {{ if .validation.Title }} is-invalid {{ end }}">
             <div class="invalid-feedback">
               {{ .validation.Title }}
             </div>
           </div>
           <div class="form-group">
             <label for="">Content</label>
-            <textarea class="form-control {{ if .validation.content }} is-invalid {{ end }}" name="content"
+            <textarea class="form-control {{ if .validation.Content }} is-invalid {{ end }}" name="content"
               id="exampleFormControlTextarea1" rows="3">{{ .post.Content }}</textarea>
             <div class="invalid-feedback">
               {{ .validation.Content }}
