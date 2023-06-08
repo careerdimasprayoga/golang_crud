@@ -36,6 +36,12 @@ func NewValidation() *Validation {
 		t, _ := ut.T("required", fe.Field())
 		return t
 	})
+	validate.RegisterTranslation("min", trans, func(ut ut.Translator) error {
+		return ut.Add("min", "{0} harus memiliki minimal {1} karakter", true)
+	}, func(ut ut.Translator, fe validator.FieldError) string {
+		t, _ := ut.T("min", fe.Field(), fe.Param())
+		return t
+	})
 
 	return &Validation{
 		validate: validate,
