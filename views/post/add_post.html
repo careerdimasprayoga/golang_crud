@@ -56,46 +56,38 @@
         <form action="/add_post" method="post">
           <div class="form-group">
             <label for="">Title</label>
-            <input type="text" name="title" class="form-control{{ if .validation.Title }} is-invalid{{ end }}"
-              value="{{ .title }}">
-            {{ if .validation.Title }}
+            <input type="text" name="title"
+              class="form-control {{ if .validation.Title }} is-invalid {{ end }}">
             <div class="invalid-feedback">
               {{ .validation.Title }}
             </div>
-            {{ end }}
           </div>
           <div class="form-group">
             <label for="">Content</label>
-            <input type="text" name="content" class="form-control{{ if .validation.Content }} is-invalid{{ end }}"
-              value="{{ .content }}">
-            {{ if .validation.Content }}
+            <input type="text" name="content"
+              class="form-control {{ if .validation.Content }} is-invalid {{ end }}">
             <div class="invalid-feedback">
               {{ .validation.Content }}
             </div>
-            {{ end }}
           </div>
           <div class="form-group">
             <label for="">Category</label>
-            <input type="text" name="category" class="form-control{{ if .validation.Category }} is-invalid{{ end }}"
-              value="{{ .category }}">
-            {{ if .validation.Category }}
+            <input type="text" name="category"
+              class="form-control {{ if .validation.Category }} is-invalid {{ end }}">
             <div class="invalid-feedback">
               {{ .validation.Category }}
             </div>
-            {{ end }}
           </div>
           <div class="form-group">
             <label for="">Status</label>
-            <select name="status" class="form-control{{ if .validation.Status }} is-invalid{{ end }}">
-              <option value="">-- Choose status --</option>
-              <option value="Publish" {{ if eq .status "Publish" }} selected{{ end }}>Publish</option>
-              <option value="Draft" {{ if eq .status "Draft" }} selected{{ end }}>Draft</option>
+            <select name="status" class="form-control {{ if .validation.Status }} is-invalid {{ end }}">
+              <option value="">-- Choose status -- </option>
+              <option value="Publish">Publish</option>
+              <option value="Draft">Draft</option>
             </select>
-            {{ if .validation.Status }}
             <div class="invalid-feedback">
               {{ .validation.Status }}
             </div>
-            {{ end }}
           </div>
 
           <div class="form-group mt-3">
