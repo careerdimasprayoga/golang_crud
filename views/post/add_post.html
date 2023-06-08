@@ -59,37 +59,37 @@
         <form action="/post/add_post" method="post">
           <div class="form-group">
             <label for="">Title</label>
-            <input type="text" name="nama_lengkap" value="{{ .post.titla }}"
+            <input type="text" name="title" value="{{ .post.Title }}"
               class="form-control {{ if .validation.post }} is-invalid {{ end }}">
             <div class="invalid-feedback">
-              {{ .validation.post }}
+              {{ .validation.Title }}
             </div>
           </div>
           <div class="form-group">
             <label for="">Content</label>
             <textarea class="form-control {{ if .validation.content }} is-invalid {{ end }}" name="content"
-              id="exampleFormControlTextarea1" rows="3">{{ .post.content }}</textarea>
+              id="exampleFormControlTextarea1" rows="3">{{ .post.Content }}</textarea>
             <div class="invalid-feedback">
-              {{ .validation.content }}
+              {{ .validation.Content }}
             </div>
           </div>
           <div class="form-group">
             <label for="">Category</label>
-            <input type="text" name="nik" value="{{ .post.category }}"
-              class="form-control {{ if .validation.category }} is-invalid {{ end }}">
+            <input type="text" name="category" value="{{ .post.Category }}"
+              class="form-control {{ if .validation.Category }} is-invalid {{ end }}">
             <div class="invalid-feedback">
-              {{ .validation.category }}
+              {{ .validation.Category }}
             </div>
           </div>
           <div class="form-group">
             <label for="">Status</label>
-            <select name="status" class="form-control {{ if .validation.status }} is-invalid {{ end }}">
+            <select name="status" class="form-control {{ if .validation.Status }} is-invalid {{ end }}">
               <option value="">Pilih Jenis Kelamin</option>
-              <option {{ if eq .post.status `Publish` }} selected {{ end }} value="Publish">Publish</option>
-              <option {{ if eq .post.status `Draft` }} selected {{ end }} value="Draft">Draft</option>
+              <option {{ if eq .post.Status `Publish` }} selected {{ end }} value="Publish">Publish</option>
+              <option {{ if eq .post.Status `Draft` }} selected {{ end }} value="Draft">Draft</option>
             </select>
             <div class="invalid-feedback">
-              {{ .validation.status }}
+              {{ .validation.Status }}
             </div>
           </div>
 
