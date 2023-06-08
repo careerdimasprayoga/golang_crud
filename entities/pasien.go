@@ -2,8 +2,8 @@ package entities
 
 type Pasien struct {
 	Id          int64
-	title  		string `validate:"required" label:"Title"`
-	content     string `validate:"required"`
-	category     string `validate:"required"`
-	status 		string `validate:"required" label:"Status !"`
+	Title  		string `validate:"required" label:"Title"`
+	Content     string `validate:"required"`
+	Category     string `validate:"required"`
+	Status 		string `validate:"required" label:"Status !"`
 }
