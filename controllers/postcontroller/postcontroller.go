@@ -47,8 +47,8 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 			postModel.Create(post)
 		}
 
-		// temp, _ := template.ParseFiles("views/add_post.html")
-		// temp.Execute(response, data)
+		temp, _ := template.ParseFiles("views/add_post.html")
+		temp.Execute(response, data)
 	}
 
 }
