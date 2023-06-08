@@ -1,7 +1,7 @@
 package postcontroller
 
 import (
-	"fmt"
+	// "fmt"
 	"html/template"
 	"net/http"
 	"strconv"
