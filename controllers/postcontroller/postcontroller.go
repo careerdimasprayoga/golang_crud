@@ -23,7 +23,7 @@ func All_post(response http.ResponseWriter, request *http.Request) {
 func Add_post(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method == http.MethodGet {
-		temp, err := template.ParseFiles("views/add_post.html")
+		temp, err := template.ParseFiles("views/post/add_post.html")
 		if err != nil {
 			panic(err)
 		}
@@ -47,7 +47,7 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 			postModel.Create(post)
 		}
 
-		temp, _ := template.ParseFiles("views/add_post.html")
+		temp, _ := template.ParseFiles("views/post/add_post.html")
 		temp.Execute(response, data)
 	}
 
