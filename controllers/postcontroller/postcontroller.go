@@ -12,13 +12,6 @@ import (
 var validation = libraries.NewValidation()
 var postModel = models.NewPostModel()
 
-func All_post(response http.ResponseWriter, request *http.Request) {
-	temp, err := template.ParseFiles("views/post/all_post.html")
-	if err != nil {
-		panic(err)
-	}
-	temp.Execute(response, nil)
-}
 
 func Add_post(response http.ResponseWriter, request *http.Request) {
 	if request.Method == http.MethodGet {
