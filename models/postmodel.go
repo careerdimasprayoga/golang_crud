@@ -34,6 +34,19 @@ func (p *PostModel) Create(post entities.Post) bool {
 	return lastInsertID > 0
 }
 
+func (p *PostModel) Update(post entities.Post) error {
+
+	_, err := p.conn.Exec(
+		"update posts set title = ?, content = ?, category = ?, status = ? where id = ?",
+		pasien.Title, pasien.Content, pasien.Category, post.status, pasien.Id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 	query := "SELECT * FROM posts LIMIT ? OFFSET ?"
 	rows, err := p.conn.Query(query, limit, offset)
