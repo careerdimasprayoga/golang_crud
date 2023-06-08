@@ -50,3 +50,33 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 		temp.Execute(response, data)
 	}
 }
+
+func All_post(response http.ResponseWriter, request *http.Request) {
+	page, err := strconv.Atoi(request.URL.Query().Get("page"))
+	if err != nil {
+		page = 1
+	}
+
+	perPage := 10
+	offset := (page - 1) * perPage
+
+	posts := postModel.GetPaginatedPosts(offset, perPage)
+	totalPosts := postModel.CountPosts()
+
+	data := struct {
+		Posts       []entities.Post
+		TotalPosts  int
+		CurrentPage int
+	}{
+		Posts:       posts,
+		TotalPosts:  totalPosts,
+		CurrentPage: page,
+	}
+
+	temp, err := template.ParseFiles("views/post/all_post.html")
+	if err != nil {
+		panic(err)
+	}
+
+	temp.Execute(response, data)
+}
