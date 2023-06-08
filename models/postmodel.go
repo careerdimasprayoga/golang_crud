@@ -34,23 +34,21 @@ func (p *PostModel) Create(post entities.Post) bool {
 }
 
 func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
-	query := "SELECT * FROM posts LIMIT ?, ?"
-	fmt.Println("Query:", query, offset, limit)
-
-	rows, err := p.conn.Query(query, offset, limit)
+	query := "SELECT * FROM posts LIMIT ? OFFSET ?"
+	rows, err := p.conn.Query(query, limit, offset)
 	if err != nil {
 		fmt.Println(err)
 		return []entities.Post{}
 	}
 	defer rows.Close()
-
+	
 	var posts []entities.Post
 	for rows.Next() {
 		var post entities.Post
 		rows.Scan(&post.Title, &post.Content, &post.Category, &post.Status)
 		posts = append(posts, post)
 	}
-
+	
 	return posts
 }
 
