@@ -38,7 +38,7 @@ func (p *PostModel) Update(post entities.Post) error {
 
 	_, err := p.conn.Exec(
 		"update posts set title = ?, content = ?, category = ?, status = ? where id = ?",
-		pasien.Title, pasien.Content, pasien.Category, post.status, pasien.Id)
+		post.Title, post.Content, post.Category, post.Status, post.Id)
 
 	if err != nil {
 		return err
@@ -108,4 +108,14 @@ func (p *PostModel) CountPosts() int {
 	}
 
 	return count
+}
+
+func (p *PostModel) Find(id int64, post *entities.Post) error {
+
+	return p.conn.QueryRow("select * from posts where id = ?", id).Scan(
+		&post.Id,
+		&post.Title,
+		&post.Content,
+		&post.Category,
+		&post.Status)
 }

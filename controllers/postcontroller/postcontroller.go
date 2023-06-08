@@ -92,7 +92,6 @@ func Edit_post(response http.ResponseWriter, request *http.Request) {
 			panic(err)
 		}
 		temp.Execute(response, data)
-
 	} else if request.Method == http.MethodPost {
 		request.ParseForm()
 		var post entities.Post
