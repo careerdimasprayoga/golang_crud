@@ -37,7 +37,7 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 		post.Status = request.Form.Get("status")
 		
 		var data = make(map[string]interface{})
-		vErrors := validation.Struct(post)
+		_, vErrors := validation.Struct(post)
 
 		if vErrors != nil {
 			data["post"] = post
