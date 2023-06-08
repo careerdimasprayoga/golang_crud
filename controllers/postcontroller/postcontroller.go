@@ -31,7 +31,7 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 	} else if request.Method == http.MethodPost {
 
 		request.ParseForm()
-		var post entities.post
+		var post entities.Post
 		post.title = request.Form.Get("title")
 		post.content = request.Form.Get("content")
 		post.status = request.Form.Get("status")
