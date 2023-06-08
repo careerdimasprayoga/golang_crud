@@ -44,7 +44,7 @@ func (p *PostModel) GetPaginatedPosts(offset, limit int) []entities.Post {
 	var posts []entities.Post
 	for rows.Next() {
 		var post entities.Post
-		rows.Scan(&post.ID, &post.Title, &post.Content, &post.Category, &post.Status)
+		rows.Scan(&post.Title, &post.Content, &post.Category, &post.Status)
 		posts = append(posts, post)
 	}
 
