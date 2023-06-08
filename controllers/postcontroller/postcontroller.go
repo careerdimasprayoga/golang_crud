@@ -69,11 +69,11 @@ func All_post(response http.ResponseWriter, request *http.Request) {
 
 	fmt.Println("Posts:")
 	for _, post := range posts {
-		fmt.Println("ID:", post.id)
-		fmt.Println("Title:", post.title)
-		fmt.Println("Content:", post.content)
-		fmt.Println("Category:", post.category)
-		fmt.Println("Status:", post.status)
+		fmt.Printf("ID: %d\n", post.ID)
+		fmt.Printf("Title: %s\n", post.Title)
+		fmt.Printf("Content: %s\n", post.Content)
+		fmt.Printf("Category: %s\n", post.Category)
+		fmt.Printf("Status: %s\n", post.Status)
 		fmt.Println("--------------------")
 	}
 
