@@ -1,6 +1,6 @@
 package entities
 
-type pasien struct {
+type Pasien struct {
 	Id          int64
 	title  		string `validate:"required" label:"Title"`
 	content     string `validate:"required"`

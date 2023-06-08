@@ -60,7 +60,7 @@ func NewPostModel() *PostModel {
 
 // }
 
-func (p *PostModel) Create(post entities.post) bool {
+func (p *PostModel) Create(post entities.Post) bool {
 
 	result, err := p.conn.Exec("insert into posts (title, content, category, status) values(?,?,?,?)",
 		post.title, post.content, post.category, post.status)
