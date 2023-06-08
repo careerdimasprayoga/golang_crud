@@ -119,3 +119,27 @@ func (p *PostModel) Find(id int64, post *entities.Post) error {
 		&post.Category,
 		&post.Status)
 }
+
+func (p *PostModel) FindAll() ([]entities.Post, error) {
+
+	rows, err := p.conn.Query("select * from posts")
+	if err != nil {
+		return []entities.Post{}, err
+	}
+	defer rows.Close()
+
+	var dataPost []entities.Post
+	for rows.Next() {
+		var post entities.Post
+		rows.Scan(&post.Id,
+			&post.Title,
+			&post.Content,
+			&post.Category,
+			&post.Status)
+
+		dataPost = append(dataPost, post)
+	}
+
+	return dataPost, nil
+
+}
