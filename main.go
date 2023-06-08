@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-	"github.com/jeypc/go-crud/controllers/pasiencontroller"
-	"github.com/careerdimasprayoga/golang_crud/tree/master/controllers/postcontroller"
+	// "github.com/jeypc/go-crud/controllers/pasiencontroller"
+	"github.com/careerdimasprayoga/golang_crud/controllers/postcontroller"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/jeypc/go-crud
+module github.com/careerdimasprayoga/golang_crud
 
 go 1.18
 
