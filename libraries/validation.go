@@ -39,10 +39,11 @@ func NewValidation() *Validation {
 
 	// Menambahkan validasi custom untuk minimal karakter
 	validate.RegisterValidation("min_length", func(fl validator.FieldLevel) bool {
-		minLength := fl.ParamInt()
+		minLength, _ := strconv.Atoi(fl.Param())
 		fieldValue := fl.Field().String()
 		return len(fieldValue) >= minLength
 	})
+
 	validate.RegisterTranslation("min_length", trans, func(ut ut.Translator) error {
 		return ut.Add("min_length", "{0} harus memiliki panjang karakter minimal {1}", true)
 	}, func(ut ut.Translator, fe validator.FieldError) string {
