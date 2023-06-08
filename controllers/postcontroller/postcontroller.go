@@ -88,7 +88,6 @@ func Edit_post(response http.ResponseWriter, request *http.Request) {
 			"post": post,
 		}
 		temp, err := template.ParseFiles("views/post/edit_post.html")
-		fmt.Println(data)
 		if err != nil {
 			panic(err)
 		}
