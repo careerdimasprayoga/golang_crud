@@ -12,16 +12,16 @@ type PostModel struct {
 	conn *sql.DB
 }
 
-// func NewPasienModel() *PasienModel {
-// 	conn, err := config.DBConnection()
-// 	if err != nil {
-// 		panic(err)
-// 	}
+func NewPostModel() *PasienModel {
+	conn, err := config.DBConnection()
+	if err != nil {
+		panic(err)
+	}
 
-// 	return &PasienModel{
-// 		conn: conn,
-// 	}
-// }
+	return &PostModel{
+		conn: conn,
+	}
+}
 
 // func (p *PasienModel) FindAll() ([]entities.Pasien, error) {
 
