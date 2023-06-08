@@ -4,10 +4,13 @@ import (
 	"html/template"
 	"net/http"
 	// "strconv"
-	// "github.com/careerdimasprayoga/golang_crud/libraries"
-	// "github.com/careerdimasprayoga/golang_crud/models"
-	// "github.com/careerdimasprayoga/golang_crud/entities"
+	"github.com/careerdimasprayoga/golang_crud/libraries"
+	"github.com/careerdimasprayoga/golang_crud/models"
+	"github.com/careerdimasprayoga/golang_crud/entities"
 )
+
+var validation = libraries.NewValidation()
+var postModel = models.NewPostModel()
 
 func All_post(response http.ResponseWriter, request *http.Request) {
 	temp, err := template.ParseFiles("views/post/all_post.html")
@@ -25,6 +28,27 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 			panic(err)
 		}
 		temp.Execute(response, nil)
+	} else if request.Method == http.MethodPost {
+
+		request.ParseForm()
+		var post entities.post
+		post.title = request.Form.Get("title")
+		post.content = request.Form.Get("content")
+		post.status = request.Form.Get("status")
+		
+		var data = make(map[string]interface{})
+		vErrors := validation.Struct(post)
+
+		if vErrors != nil {
+			data["post"] = post
+			data["validation"] = vErrors
+		} else {
+			data["pesan"] = "Post successfully saved !"
+			postModel.Create(post)
+		}
+
+		temp, _ := template.ParseFiles("views/post/add_post.html")
+		temp.Execute(response, data)
 	}
 
 }

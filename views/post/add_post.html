@@ -11,7 +11,7 @@
 
 <body>
   <!-- start::navbar -->
-  <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
+  <nav class="navbar navbar-light navbar-expand-lg mb-2" style="background-color: #e3f2fd;">
     <div class="container">
       <a class="navbar-brand" href="#">
         <img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24"
@@ -39,59 +39,69 @@
   <!-- end::navbar -->
 
   <!-- start::content -->
+  <!-- start::content -->
   <div class="container">
-    <h3> + Add Post</h3>
-    <a href="/" class="btn btn-sm btn-primary">Lihat Data</a>
-    <hr />
+    <div class="row">
+      <div class="col-sm-12">
+        <h4 class="mb-0">All Post</h4>
+        <nav aria-label="breadcrumb" class="mb-2">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Post</a></li>
+            <li class="breadcrumb-item active" aria-current="page">All Post</li>
+          </ol>
+        </nav>
+        {{ if .pesan }}
+        <div class="alert alert-success">
+          {{ .pesan }}
+        </div>
+        {{ end }}
 
-    {{ if .pesan }}
-    <div class="alert alert-success">
-      {{ .pesan }}
+        <form action="/post/add_post" method="post">
+          <div class="form-group">
+            <label for="">Title</label>
+            <input type="text" name="nama_lengkap" value="{{ .post.titla }}"
+              class="form-control {{ if .validation.post }} is-invalid {{ end }}">
+            <div class="invalid-feedback">
+              {{ .validation.post }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">Content</label>
+            <textarea class="form-control {{ if .validation.content }} is-invalid {{ end }}" name="content"
+              id="exampleFormControlTextarea1" rows="3">{{ .post.content }}</textarea>
+            <div class="invalid-feedback">
+              {{ .validation.content }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">Category</label>
+            <input type="text" name="nik" value="{{ .post.category }}"
+              class="form-control {{ if .validation.category }} is-invalid {{ end }}">
+            <div class="invalid-feedback">
+              {{ .validation.category }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">Status</label>
+            <select name="status" class="form-control {{ if .validation.status }} is-invalid {{ end }}">
+              <option value="">Pilih Jenis Kelamin</option>
+              <option {{ if eq .post.status `Publish` }} selected {{ end }} value="Publish">Publish</option>
+              <option {{ if eq .post.status `Draft` }} selected {{ end }} value="Draft">Draft</option>
+            </select>
+            <div class="invalid-feedback">
+              {{ .validation.status }}
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <button class="btn btn-primary btn-block" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
     </div>
-    {{ end }}
-
-    <form action="/post/add_post" method="post">
-      <div class="form-group">
-        <label for="">Title</label>
-        <input type="text" name="nama_lengkap" value="{{ .post.titla }}"
-          class="form-control {{ if .validation.post }} is-invalid {{ end }}">
-        <div class="invalid-feedback">
-          {{ .validation.post }}
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="">Content</label>
-        <textarea class="form-control {{ if .validation.content }} is-invalid {{ end }}" name="content" id="exampleFormControlTextarea1" rows="3">{{ .post.content }}</textarea>
-        <div class="invalid-feedback">
-          {{ .validation.content }}
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="">Category</label>
-        <input type="text" name="nik" value="{{ .post.category }}"
-          class="form-control {{ if .validation.category }} is-invalid {{ end }}">
-        <div class="invalid-feedback">
-          {{ .validation.category }}
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="">Status</label>
-        <select name="status" class="form-control {{ if .validation.status }} is-invalid {{ end }}">
-          <option value="">Pilih Jenis Kelamin</option>
-          <option {{ if eq .post.status `1` }} selected {{ end }} value="1">Publish</option>
-          <option {{ if eq .post.status `2` }} selected {{ end }} value="2">Draft</option>
-        </select>
-        <div class="invalid-feedback">
-          {{ .validation.status }}
-        </div>
-      </div>
-
-      <div class="form-group">
-        <button class="btn btn-primary btn-block" type="submit">Save</button>
-      </div>
-    </form>
   </div>
   <!-- end::content -->
+
 
 
 
