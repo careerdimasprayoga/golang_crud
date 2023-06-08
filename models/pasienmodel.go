@@ -2,8 +2,8 @@ package models
 
 import (
 	"database/sql"
-	"fmt"
-	"time"
+	// "fmt"
+	// "time"
 
 	// "github.com/jeypc/go-crud/config"
 	// "github.com/jeypc/go-crud/entities"
