@@ -1,17 +1,17 @@
-// package models
+package models
 
-// import (
-// 	"database/sql"
-// 	"fmt"
-// 	"time"
+import (
+	"database/sql"
+	"fmt"
+	"time"
 
-// 	"github.com/jeypc/go-crud/config"
-// 	"github.com/jeypc/go-crud/entities"
-// )
+	// "github.com/jeypc/go-crud/config"
+	// "github.com/jeypc/go-crud/entities"
+)
 
-// type PasienModel struct {
-// 	conn *sql.DB
-// }
+type PasienModel struct {
+	conn *sql.DB
+}
 
 // func NewPasienModel() *PasienModel {
 // 	conn, err := config.DBConnection()
