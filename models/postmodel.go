@@ -12,7 +12,7 @@ type PostModel struct {
 	conn *sql.DB
 }
 
-func NewPostModel() *PasienModel {
+func NewPostModel() *PostModel {
 	conn, err := config.DBConnection()
 	if err != nil {
 		panic(err)
