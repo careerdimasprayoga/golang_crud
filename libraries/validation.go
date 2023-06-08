@@ -36,30 +36,21 @@ func NewValidation() *Validation {
 		t, _ := ut.T("required", fe.Field())
 		return t
 	})
-
-	// Validasi custom untuk minimal string
-	validate.RegisterValidation("minstring", func(fl validator.FieldLevel) bool {
-		field := fl.Field()
-		if field.Kind() == reflect.String {
-			minLength := fl.Param()
-			return len(field.String()) >= int(minLength)
-		}
-		return false
-	})
-
-	validate.RegisterTranslation("minstring", trans, func(ut ut.Translator) error {
-		return ut.Add("minstring", "{0} harus memiliki minimal {1} karakter", true)
-	}, func(ut ut.Translator, fe validator.FieldError) string {
-		t, _ := ut.T("minstring", fe.Field(), fe.Param())
-		return t
-	})
+	// Register custom validation untuk minimal karakter
+	validate.RegisterCustomTypeFunc(validateCustomTypeFunc, Post{})
+	validate.RegisterValidation("minchar", validateMinChar)
 
 	return &Validation{
 		validate: validate,
 		trans:    trans,
 	}
 }
-
+func validateCustomTypeFunc(field reflect.Value) interface{} {
+	if field.Type() == reflect.TypeOf(Post{}) {
+		return field.Addr().Interface().(Post)
+	}
+	return nil
+}
 func (v *Validation) Struct(s interface{}) interface{} {
 	errors := make(map[string]string)
 
