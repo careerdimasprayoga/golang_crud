@@ -32,9 +32,10 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 
 		request.ParseForm()
 		var post entities.Post
-		post.title = request.Form.Get("title")
-		post.content = request.Form.Get("content")
-		post.status = request.Form.Get("status")
+		post.Title = request.Form.Get("Title")
+		post.Content = request.Form.Get("Content")
+		post.Category = request.Form.Get("Category")
+		post.Status = request.Form.Get("status")
 		
 		var data = make(map[string]interface{})
 		vErrors := validation.Struct(post)
