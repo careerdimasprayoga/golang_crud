@@ -68,7 +68,7 @@
           <div class="form-group">
             <label for="">Content</label>
             <textarea class="form-control {{ if .validation.Content }} is-invalid {{ end }}" name="content"
-              id="exampleFormControlTextarea1" rows="3">{{ .post.Content }}</textarea>
+              id="exampleFormControlTextarea1" rows="3" value="{{ .post.Content }}"></textarea>
             <div class="invalid-feedback">
               {{ .validation.Content }}
             </div>

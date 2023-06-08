@@ -31,9 +31,9 @@ func Add_post(response http.ResponseWriter, request *http.Request) {
 	} else if request.Method == http.MethodPost {
 		request.ParseForm()
 		var post entities.Post
-		post.Title = request.Form.Get("Title")
-		post.Content = request.Form.Get("Content")
-		post.Category = request.Form.Get("Category")
+		post.Title = request.Form.Get("title")
+		post.Content = request.Form.Get("content")
+		post.Category = request.Form.Get("category")
 		post.Status = request.Form.Get("status")
 		
 		var data = make(map[string]interface{})
