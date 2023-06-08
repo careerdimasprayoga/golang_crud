@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/careerdimasprayoga/golang_crud/config"
 	"github.com/careerdimasprayoga/golang_crud/entities"
+	"github.com/mitchellh/mapstructure"
 )
 
 type PostModel struct {
