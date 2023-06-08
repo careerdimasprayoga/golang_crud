@@ -8,7 +8,7 @@ import (
 	"github.com/careerdimasprayoga/golang_crud/entities"
 )
 
-type PasienModel struct {
+type PostModel struct {
 	conn *sql.DB
 }
 
