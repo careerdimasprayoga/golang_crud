@@ -6,7 +6,7 @@ import (
 	// "strconv"
 	// "github.com/careerdimasprayoga/golang_crud/libraries"
 	// "github.com/careerdimasprayoga/golang_crud/models"
-	"github.com/careerdimasprayoga/golang_crud/entities"
+	// "github.com/careerdimasprayoga/golang_crud/entities"
 )
 
 func all_post(response http.ResponseWriter, request *http.Request) {
