@@ -81,8 +81,8 @@
             <label for="status">Status</label>
             <select name="status" class="form-control {{ if index .validation "Status" }} is-invalid {{ end }}">
               <option value="">-- Choose status -- </option>
-              <option value="Publish" {{ if eq .post.Status "Publish" }} selected {{ end }}>Publish</option>
-              <option value="Draft" {{ if eq .post.Status "Draft" }} selected {{ end }}>Draft</option>
+              <option {{ if eq .post.Status `Publish` }} selected {{ end }} value="Publish">Publish</option>
+              <option {{ if eq .post.Status `Draft` }} selected {{ end }} value="Draft">Draft</option>
             </select>
             <div class="invalid-feedback">
               {{ index .validation "Status" }}
