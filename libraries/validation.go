@@ -37,6 +37,26 @@ func NewValidation() *Validation {
 		return t
 	})
 
+	// register validation min_length
+	validate.RegisterValidation("min_length", func(fl validator.FieldLevel) bool {
+		field := fl.Field().String()
+		param := fl.Param()
+
+		if len(field) < int(param) {
+			return false
+		}
+
+		return true
+	})
+
+	// register translation for min_length validation
+	validate.RegisterTranslation("min_length", trans, func(ut ut.Translator) error {
+		return ut.Add("min_length", "{0} harus memiliki panjang minimum {1}", true)
+	}, func(ut ut.Translator, fe validator.FieldError) string {
+		t, _ := ut.T("min_length", fe.Field(), fe.Param())
+		return t
+	})
+
 	return &Validation{
 		validate: validate,
 		trans:    trans,
