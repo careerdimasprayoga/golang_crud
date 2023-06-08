@@ -1,6 +1,6 @@
 package entities
 
-type post struct {
+type pasien struct {
 	Id          int64
 	title  		string `validate:"required" label:"Title"`
 	content     string `validate:"required"`
