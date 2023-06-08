@@ -58,7 +58,7 @@ func NewValidation() *Validation {
 	}
 }
 
-func (v *Validation) Struct(s interface{}) interface{} {
+func (v *Validation) Struct(s interface{}) (interface{}, map[string]string) {
 	errors := make(map[string]string)
 
 	err := v.validate.Struct(s)
@@ -69,8 +69,8 @@ func (v *Validation) Struct(s interface{}) interface{} {
 	}
 
 	if len(errors) > 0 {
-		return errors
+		return s, errors
 	}
 
-	return nil
+	return nil, nil
 }
