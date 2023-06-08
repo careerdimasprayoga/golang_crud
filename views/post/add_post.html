@@ -64,7 +64,7 @@
           <div class="form-group">
             <label for="content">Content</label>
             <input type="text" name="content"
-              class="form-control {{ if index .validation "Content" }} is-invalid {{ end }}" value="{{ .post.Content }}">
+              class="form-control {{ if index .validation "Content" }} is-invalid {{ end }}" value="{{ if .post.Content }}{{ .post.Content }}{{ end }}">
             <div class="invalid-feedback">
               {{ index .validation "Content" }}
             </div>
@@ -72,7 +72,7 @@
           <div class="form-group">
             <label for="category">Category</label>
             <input type="text" name="category"
-              class="form-control {{ if index .validation "Category" }} is-invalid {{ end }}" value="{{ .post.Category }}">
+              class="form-control {{ if index .validation "Category" }} is-invalid {{ end }}" value="{{ if .post.Content }}{{ .post.Category }}{{ end }}">
             <div class="invalid-feedback">
               {{ index .validation "Category" }}
             </div>
