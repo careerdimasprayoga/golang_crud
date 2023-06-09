@@ -92,9 +92,6 @@ func Edit_post(response http.ResponseWriter, request *http.Request) {
 			panic(err)
 		}
 		fmt.Println("ID:", id)
-		fmt.Println("Post:", post)
-		fmt.Println("Data:", data)
-		temp.Execute(response, data)
 	} else if request.Method == http.MethodPost {
 		request.ParseForm()
 		var post entities.Post
@@ -117,5 +114,26 @@ func Edit_post(response http.ResponseWriter, request *http.Request) {
 		temp, _ := template.ParseFiles("views/post/edit_post.html")
 		temp.Execute(response, data)
 	}
+}
 
+
+
+func Move_trash(response http.ResponseWriter, request *http.Request) {
+	request.ParseForm()
+	var post entities.Post
+	post.Id, _ = strconv.ParseInt(request.Form.Get("id"), 10, 64)
+	post.Status = "Trash"
+	var data = make(map[string]interface{})
+	vErrors := validation.Struct(post)
+
+	if vErrors != nil {
+		data["post"] = post
+		data["validation"] = vErrors
+	} else {
+		data["pesan"] = "Trashed successfull"
+		postModel.MoveTrash(post)
+	}
+
+	temp, _ := template.ParseFiles("views/post/all_post.html")
+	temp.Execute(response, data)
 }

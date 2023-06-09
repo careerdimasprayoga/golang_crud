@@ -35,15 +35,21 @@ func (p *PostModel) Create(post entities.Post) bool {
 }
 
 func (p *PostModel) Update(post entities.Post) error {
-
 	_, err := p.conn.Exec(
 		"update posts set title = ?, content = ?, category = ?, status = ? where id = ?",
 		post.Title, post.Content, post.Category, post.Status, post.Id)
-
 	if err != nil {
 		return err
 	}
-
+	return nil
+}
+func (p *PostModel) MoveTrash(post entities.Post) error {
+	_, err := p.conn.Exec(
+		"update posts set status = ? where id = ?",
+		post.Status, post.Id)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -111,7 +117,6 @@ func (p *PostModel) CountPosts() int {
 }
 
 func (p *PostModel) Find(id int64, post *entities.Post) error {
-
 	return p.conn.QueryRow("select Id, Title, Content, Category, Status from posts where Id = ?", id).Scan(
 		&post.Id,
 		&post.Title,
