@@ -112,12 +112,12 @@ func (p *PostModel) CountPosts() int {
 
 func (p *PostModel) Find(id int64, post *entities.Post) error {
 
-	return p.conn.QueryRow("select * from posts where Id = ?", id).Scan(
-		&post.id,
-		&post.title,
-		&post.content,
-		&post.category,
-		&post.status)
+	return p.conn.QueryRow("select Id, Title, Content, Category, Status from posts where Id = ?", id).Scan(
+		&post.Id,
+		&post.Title,
+		&post.Content,
+		&post.Category,
+		&post.Status)
 }
 
 func (p *PostModel) FindAll() ([]entities.Post, error) {
