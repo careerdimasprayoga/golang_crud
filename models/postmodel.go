@@ -111,6 +111,7 @@ func (p *PostModel) CountPosts() int {
 }
 
 func (p *PostModel) Find(id int64, post *entities.Post) error {
+	fmt.Println("ID --:", id)
 
 	return p.conn.QueryRow("select * from posts where Id = ?", id).Scan(
 		&post.Id,
