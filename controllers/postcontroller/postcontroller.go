@@ -91,7 +91,9 @@ func Edit_post(response http.ResponseWriter, request *http.Request) {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(post)
+		fmt.Println("ID:", id)
+		fmt.Println("Post:", post)
+		fmt.Println("Data:", data)
 		temp.Execute(response, data)
 	} else if request.Method == http.MethodPost {
 		request.ParseForm()
