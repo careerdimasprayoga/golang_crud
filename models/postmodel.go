@@ -111,30 +111,13 @@ func (p *PostModel) CountPosts() int {
 }
 
 func (p *PostModel) Find(id int64, post *entities.Post) error {
-	fmt.Println("ID --:", id)
 
-	rows, err := p.conn.Query("SELECT * FROM posts WHERE Id = ?", id)
-	if err != nil {
-		return err
-	}
-	defer rows.Close()
-
-	if rows.Next() {
-		err := rows.Scan(
-			&post.Id,
-			&post.Title,
-			&post.Content,
-			&post.Category,
-			&post.Status,
-		)
-		if err != nil {
-			return err
-		}
-	}
-
-	fmt.Println("Post:", post)
-
-	return nil
+	return p.conn.QueryRow("select * from posts where Id = ?", id).Scan(
+		&post.id,
+		&post.title,
+		&post.content,
+		&post.category,
+		&post.status)
 }
 
 func (p *PostModel) FindAll() ([]entities.Post, error) {
