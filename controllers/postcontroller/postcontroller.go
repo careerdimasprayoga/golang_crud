@@ -1,7 +1,7 @@
 package postcontroller
 
 import (
-	// "fmt"
+	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -91,6 +91,7 @@ func Edit_post(response http.ResponseWriter, request *http.Request) {
 		if err != nil {
 			panic(err)
 		}
+		fmt.Println(post)
 		temp.Execute(response, data)
 	} else if request.Method == http.MethodPost {
 		request.ParseForm()
